@@ -1,7 +1,9 @@
 package net.logstash.log4j;
 
 import net.logstash.log4j.data.HostData;
+import net.logstash.log4j.util.JSONUtil;
 import net.minidev.json.JSONObject;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.FastDateFormat;
 import org.apache.log4j.Layout;
@@ -104,7 +106,7 @@ public class JSONEventLayoutV1 extends Layout {
          */
         logstashEvent.put("source_host", hostname);
         logstashEvent.put("message", loggingEvent.getRenderedMessage());
-
+        
         if (loggingEvent.getThrowableInformation() != null) {
             final ThrowableInformation throwableInformation = loggingEvent.getThrowableInformation();
             if (throwableInformation.getThrowable().getClass().getCanonicalName() != null) {
@@ -133,8 +135,10 @@ public class JSONEventLayoutV1 extends Layout {
         addEventData("ndc", ndc);
         addEventData("level", loggingEvent.getLevel().toString());
         addEventData("thread_name", threadName);
-
-        return logstashEvent.toString() + "\n";
+        
+        String returnStr = logstashEvent.toString().replace("\\\"", "\"").replace("\"{", "{").replace("}\"", "}");
+        
+        return JSONUtil.toUnicodeJSON(returnStr).replace("\\\"", "\"").replace("\"{", "{").replace("}\"", "}") + "\n";
     }
 
     public boolean ignoresThrowable() {
