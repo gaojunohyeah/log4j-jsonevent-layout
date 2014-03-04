@@ -124,17 +124,17 @@ public class JSONEventLayoutV1 extends Layout {
 
         if (locationInfo) {
             info = loggingEvent.getLocationInformation();
-            addEventData("file", info.getFileName());
-            addEventData("line_number", info.getLineNumber());
-            addEventData("class", info.getClassName());
-            addEventData("method", info.getMethodName());
+//            addEventData("file", info.getFileName());
+//            addEventData("line_number", info.getLineNumber());
+//            addEventData("class", info.getClassName());
+//            addEventData("method", info.getMethodName());
         }
 
-        addEventData("logger_name", loggingEvent.getLoggerName());
-        addEventData("mdc", mdc);
-        addEventData("ndc", ndc);
-        addEventData("level", loggingEvent.getLevel().toString());
-        addEventData("thread_name", threadName);
+//        addEventData("logger_name", loggingEvent.getLoggerName());
+//        addEventData("mdc", mdc);
+//        addEventData("ndc", ndc);
+//        addEventData("level", loggingEvent.getLevel().toString());
+//        addEventData("thread_name", threadName);
         
         String returnStr = logstashEvent.toString().replace("\\\"", "\"").replace("\"{", "{").replace("}\"", "}");
         
